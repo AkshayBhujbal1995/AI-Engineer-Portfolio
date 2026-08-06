@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akshay Bhujbal | AI Engineer — Agentic AI & Real-Time Voice Systems</title>
+<meta name="description" content="Akshay Bhujbal — AI Engineer building production agentic AI systems, real-time voice automation, and LLM-powered workflows.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A8</text></svg>">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#06070b;
+  --card:rgba(255,255,255,0.035);
+  --border:rgba(255,255,255,0.09);
+  --text:#eef1f7;
+  --dim:#98a2b3;
+  --primary:#6366f1;
+  --accent:#22d3ee;
+  --violet:#a855f7;
+  --surface:#0b0d14;
+  --header-bg:rgba(6,7,11,0.7);
+}
+:root[data-theme="light"]{
+  --bg:#f7f8fb;
+  --card:rgba(15,23,42,0.035);
+  --border:rgba(15,23,42,0.1);
+  --text:#0f172a;
+  --dim:#475569;
+  --primary:#4f46e5;
+  --accent:#0891b2;
+  --violet:#7c3aed;
+  --surface:#ffffff;
+  --header-bg:rgba(247,248,251,0.78);
+}
+*{box-sizing:border-box;}
+body{background:var(--bg); color:var(--dim); font-family:'Inter',sans-serif; overflow-x:hidden; transition:background .3s ease, color .3s ease;}
+h1,h2,h3,h4,.font-display{font-family:'Space Grotesk',sans-serif; color:var(--text);}
+.mono{font-family:'JetBrains Mono',monospace;}
+.gradient-text{background-image:linear-gradient(90deg,var(--primary),var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+.blob{position:fixed; border-radius:9999px; filter:blur(90px); z-index:-1; opacity:0.28; pointer-events:none;}
+.blob1{width:520px; height:520px; background:var(--primary); top:-160px; left:-160px; animation:drift1 22s ease-in-out infinite alternate;}
+.blob2{width:460px; height:460px; background:var(--accent); bottom:-140px; right:-140px; animation:drift2 26s ease-in-out infinite alternate;}
+.blob3{width:380px; height:380px; background:var(--violet); top:35%; left:55%; animation:drift3 19s ease-in-out infinite alternate;}
+@keyframes drift1{to{transform:translate(60px,80px) scale(1.15);}}
+@keyframes drift2{to{transform:translate(-50px,-60px) scale(1.1);}}
+@keyframes drift3{to{transform:translate(-70px,50px) scale(1.2);}}
+
+.glass{background:var(--card); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid var(--border); transition:all .35s ease;}
+.glass-hover:hover{transform:translateY(-6px); border-color:rgba(99,102,241,0.5); box-shadow:0 12px 40px -12px rgba(99,102,241,0.35);}
+
+.btn{padding:.85rem 1.75rem; border-radius:10px; font-weight:600; font-family:'Space Grotesk',sans-serif; letter-spacing:.02em; transition:all .25s ease; display:inline-block;}
+.btn-primary{background-image:linear-gradient(90deg,var(--primary),var(--accent)); color:#04050a;}
+.btn-primary:hover{transform:scale(1.04); box-shadow:0 10px 30px -8px rgba(99,102,241,.6);}
+.btn-outline{border:1.5px solid var(--border); color:var(--text);}
+.btn-outline:hover{border-color:var(--accent); color:var(--accent);}
+
+.site-header{background:var(--header-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);}
+.nav-link{position:relative; color:var(--dim); transition:color .2s ease;}
+.nav-link:hover{color:var(--text);}
+.icon-btn{width:38px; height:38px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--dim); transition:all .2s ease; flex-shrink:0;}
+.icon-btn:hover{border-color:var(--accent); color:var(--accent);}
+#mobile-menu{transition:max-height .35s ease, opacity .25s ease; background:var(--surface); backdrop-filter:blur(18px);}
+
+.timeline-item{position:relative; padding-left:2rem; border-left:1.5px solid var(--border);}
+.timeline-item:last-child{border-left-color:transparent;}
+.timeline-dot{position:absolute; left:-6.5px; top:.4rem; width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--accent)); box-shadow:0 0 12px rgba(99,102,241,.7);}
+
+.badge{font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.08em; padding:.2rem .6rem; border-radius:999px; text-transform:uppercase;}
+.badge-production{background:rgba(34,211,238,0.12); color:var(--accent); border:1px solid rgba(34,211,238,0.3);}
+.badge-learning{background:rgba(148,163,184,0.1); color:var(--dim); border:1px solid var(--border);}
+
+.tab-btn{border:1px solid var(--border); color:var(--dim); transition:all .25s ease;}
+.tab-btn.active{background-image:linear-gradient(90deg,var(--primary),var(--accent)); color:#04050a; border-color:transparent;}
+
+.chat-line{opacity:0; transform:translateY(8px); animation:chatIn .4s ease forwards;}
+@keyframes chatIn{to{opacity:1; transform:translateY(0);}}
+.bubble-agent{background:linear-gradient(135deg,rgba(99,102,241,.18),rgba(34,211,238,.14)); border:1px solid rgba(99,102,241,.3); align-self:flex-end;}
+.bubble-caller{background:rgba(255,255,255,.05); border:1px solid var(--border); align-self:flex-start;}
+.bubble-system{align-self:center; text-align:center; font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--accent); background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.25);}
+
+.contact-input{background:rgba(255,255,255,.03); border:1px solid var(--border); color:var(--text); transition:all .25s ease;}
+.contact-input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(34,211,238,.15);}
+
+::selection{background:rgba(99,102,241,.4);}
+
+#hero-canvas{z-index:0;}
+.hero-blur{filter:blur(18px); opacity:0;}
+
+.agent-avatar{width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;}
+.agent-avatar-caller{background:rgba(255,255,255,.06); border:1px solid var(--border);}
+.agent-avatar-ai{background:linear-gradient(135deg,var(--primary),var(--accent)); box-shadow:0 0 20px rgba(99,102,241,.5);}
+.typing-dots{display:inline-flex; gap:3px;}
+.typing-dots span{width:5px; height:5px; border-radius:50%; background:var(--accent); animation:typingBounce 1s infinite ease-in-out;}
+.typing-dots span:nth-child(2){animation-delay:.15s;}
+.typing-dots span:nth-child(3){animation-delay:.3s;}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0); opacity:.4;}30%{transform:translateY(-4px); opacity:1;}}
+
+.carousel-arrow{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:all .25s ease; flex-shrink:0; color:var(--text);}
+.carousel-arrow:hover{border-color:var(--accent); color:var(--accent); background:rgba(34,211,238,.08);}
+.carousel-dot{width:8px; height:8px; border-radius:50%; background:var(--border); transition:all .25s ease; cursor:pointer;}
+.carousel-dot.active{background:linear-gradient(90deg,var(--primary),var(--accent)); width:24px;}
+</style>
+</head>
+<body class="antialiased">
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<header id="navbar" class="site-header fixed top-0 left-0 w-full z-50 border-b border-white/5">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center relative">
+    <a href="#home" class="font-display text-xl font-bold" style="color:var(--text);">Akshay<span class="gradient-text">.</span></a>
+    <nav class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#ai-demo" class="nav-link">AI in Action</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z"/></svg>
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      </button>
+      <a href="#contact" class="hidden md:inline-block btn btn-primary !py-2 !px-5 text-sm">Hire Me</a>
+      <button id="menu-toggle" class="md:hidden icon-btn" aria-label="Toggle menu">
+        <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden absolute top-full left-0 w-full glass overflow-hidden max-h-0 opacity-0">
+      <div class="flex flex-col px-6 py-4 gap-4 text-sm">
+        <a href="#about" class="nav-link mobile-link">About</a>
+        <a href="#skills" class="nav-link mobile-link">Skills</a>
+        <a href="#experience" class="nav-link mobile-link">Experience</a>
+        <a href="#education" class="nav-link mobile-link">Education</a>
+        <a href="#projects" class="nav-link mobile-link">Projects</a>
+        <a href="#ai-demo" class="nav-link mobile-link">AI in Action</a>
+        <a href="#contact" class="nav-link mobile-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container mx-auto px-6">
+
+  <section id="home" class="min-h-screen flex items-center pt-24 relative overflow-hidden">
+    <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+    <div class="max-w-3xl relative z-10">
+      <p class="mono text-accent text-xs sm:text-sm tracking-[0.2em] uppercase mb-5 hero-blur">// Open to AI Engineering roles</p>
+      <h1 class="text-5xl sm:text-7xl font-bold leading-tight hero-blur" style="color:var(--text);">Akshay Bhujbal</h1>
+      <h2 class="text-2xl sm:text-4xl font-semibold mt-3 h-12 hero-blur"><span id="role-rotator" class="gradient-text">AI Engineer</span></h2>
+      <p class="mt-6 text-lg max-w-2xl hero-blur" style="color:var(--dim);">Building production AI systems — real-time voice agents, agentic automation platforms, and LLM-powered workflows that run real businesses, not demos.</p>
+      <div class="mt-9 flex flex-wrap items-center gap-4 hero-blur">
+        <a href="#ai-demo" class="btn btn-primary">See AI in Action</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+        <a href="https://github.com/AkshayBhujbal1995" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.95.1-.75.4-1.25.73-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 015.73 0c2.18-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A10.51 10.51 0 0023.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/akshay-1995-bhujbal" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 11.02-4.12 2.06 2.06 0 01-.02 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-12" style="color:var(--text);">About</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+      <div class="lg:col-span-2 flex justify-center">
+        <div class="w-64 h-64 rounded-2xl glass p-2 relative">
+          <img src="pro.png" alt="Akshay Bhujbal" class="w-full h-full object-cover rounded-xl">
+        </div>
+      </div>
+      <div class="lg:col-span-3 space-y-4 text-base leading-relaxed">
+        <p>Building <span class="font-medium" style="color:var(--text);">production AI systems</span> — real-time voice agents, agentic automation platforms, and LLM-powered workflows — that run real businesses, not demos.</p>
+        <p>Engineering <span class="font-medium" style="color:var(--text);">real-time voice pipelines (LiveKit/WebRTC), multi-agent orchestration (MCP, LangChain), and RAG architectures</span> for production scale.</p>
+        <p>Skilled in <span class="font-medium" style="color:var(--text);">Python, FastAPI, PostgreSQL, Next.js/React, &amp; Docker</span> for building and shipping full-stack AI products.</p>
+        <p>Currently deepening <span class="font-medium" style="color:var(--text);">DevOps</span> — CI/CD and infrastructure automation — to take AI systems from prototype to reliably operated production services.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-12" style="color:var(--text);">Technical Toolkit</h2>
+    <div id="skills-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+  </section>
+
+  <section id="experience" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-12" style="color:var(--text);">Experience</h2>
+    <div id="experience-timeline" class="max-w-3xl mx-auto space-y-10"></div>
+  </section>
+
+  <section id="education" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-12" style="color:var(--text);">Education</h2>
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div class="glass glass-hover rounded-2xl p-6">
+        <h3 class="text-lg font-bold" style="color:var(--text);">Postgraduate Diploma in <span class="gradient-text">Data Analytics</span></h3>
+        <p class="mono text-accent text-sm mt-1">National College of Ireland · 2020</p>
+        <p class="mt-2 text-sm">Specialized in Python, SQL, Data Visualization, and Machine Learning with hands-on BI tools.</p>
+      </div>
+      <div class="glass glass-hover rounded-2xl p-6">
+        <h3 class="text-lg font-bold" style="color:var(--text);">Bachelor of Science in <span class="gradient-text">Computer Science</span></h3>
+        <p class="mono text-accent text-sm mt-1">Savitribai Phule Pune University · 2016</p>
+        <p class="mt-2 text-sm">Core foundation in software development, data structures, and computer systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text);">Projects</h2>
+    <p class="mb-10 max-w-2xl">Production systems currently in active use — click through, or use the arrows.</p>
+
+    <div class="flex items-center gap-4 sm:gap-6 max-w-3xl mx-auto mb-8">
+      <button id="carousel-prev" class="carousel-arrow" aria-label="Previous project">←</button>
+      <div id="project-carousel" class="flex-1 min-h-[280px]"></div>
+      <button id="carousel-next" class="carousel-arrow" aria-label="Next project">→</button>
+    </div>
+    <div id="carousel-dots" class="flex justify-center gap-2 mb-16"></div>
+
+    <p class="mb-8 max-w-2xl">Personal projects from my AI/ML learning journey.</p>
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <section id="ai-demo" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="color:var(--text);">AI in Action</h2>
+    <p class="mb-10 max-w-2xl">A scripted, illustrative walkthrough of how each production system behaves — click a tab, then simulate it.</p>
+
+    <div id="tab-buttons" class="flex flex-wrap gap-3 mb-8"></div>
+
+    <div class="glass rounded-2xl p-6 sm:p-10 max-w-3xl">
+      <div class="flex items-center justify-between mb-6">
+        <h3 id="demo-title" class="font-display text-xl font-bold" style="color:var(--text);"></h3>
+        <span class="badge badge-production mono">Simulated walkthrough</span>
+      </div>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex flex-col items-center gap-2">
+          <div class="agent-avatar agent-avatar-caller">🧑</div>
+          <span class="mono text-[10px] uppercase tracking-widest" style="color:var(--dim);">Customer</span>
+        </div>
+        <div id="talk-indicator" class="flex-1 mx-4 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="agent-avatar agent-avatar-ai">🤖</div>
+          <span class="mono text-[10px] uppercase tracking-widest" style="color:var(--dim);">AI Agent</span>
+        </div>
+      </div>
+      <button id="simulate-btn" class="btn btn-primary !py-2.5 !px-6 text-sm mb-8">▶ Simulate</button>
+      <div id="demo-panel" class="flex flex-col gap-3 min-h-[220px]"></div>
+    </div>
+  </section>
+
+  <div class="text-center py-12">
+    <a href="https://drive.google.com/file/d/1Y0MS6B23S8pLsOj-ec7L8bnRqGtHFF_N/view?usp=drive_link" download class="btn btn-outline">Download Resume</a>
+  </div>
+
+  <section id="contact" class="py-24 reveal">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-12 text-center" style="color:var(--text);">Let's Connect</h2>
+    <div class="max-w-xl mx-auto glass rounded-2xl p-8">
+      <form action="https://formsubmit.co/akshaybhujbal.ai@gmail.com" method="POST" class="space-y-5">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://akshaybhujbal1995.github.io/AI-Engineer-Portfolio/thankyou.html">
+        <input type="text" name="name" placeholder="Your Name" class="contact-input rounded-lg p-3 w-full" required>
+        <input type="email" name="email" placeholder="Your Email" class="contact-input rounded-lg p-3 w-full" required>
+        <input type="text" name="subject" placeholder="Subject" class="contact-input rounded-lg p-3 w-full" required>
+        <textarea name="message" rows="5" placeholder="Message" class="contact-input rounded-lg p-3 w-full" required></textarea>
+        <button type="submit" class="btn btn-primary w-full">Send Message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-white/5 mt-16">
+  <div class="container mx-auto px-6 py-10 text-center">
+    <a href="#home" class="font-display text-xl font-bold" style="color:var(--text);">Akshay Bhujbal</a>
+    <div class="flex justify-center gap-6 mt-4 text-xl">
+      <a href="https://github.com/AkshayBhujbal1995" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">GitHub</a>
+      <a href="https://www.linkedin.com/in/akshay-1995-bhujbal" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">LinkedIn</a>
+    </div>
+    <p class="mt-6 text-xs mono">© 2026 Akshay Bhujbal</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ---------- THEME TOGGLE ----------
+  const themeToggle = document.getElementById('theme-toggle');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    iconSun.classList.toggle('hidden', theme !== 'light');
+    iconMoon.classList.toggle('hidden', theme === 'light');
+    localStorage.setItem('theme', theme);
+  }
+  applyTheme(localStorage.getItem('theme') || 'dark');
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    applyTheme(current === 'light' ? 'dark' : 'light');
+  });
+
+  // ---------- DATA ----------
+  const skillsData = [
+    { icon: '🎙️', name: 'LiveKit', desc: 'Real-Time Voice AI (WebRTC)' },
+    { icon: '🧠', name: 'Agentic AI', desc: 'Multi-Agent Orchestration' },
+    { icon: '🔗', name: 'MCP', desc: 'Tool-Calling & Integration' },
+    { icon: '🤖', name: 'LangChain', desc: 'AI Orchestration Framework' },
+    { icon: '🛰️', name: 'RAG Systems', desc: 'Retrieval-Augmented Generation' },
+    { icon: '⚡', name: 'Generative AI', desc: 'LLMs & Prompt Engineering' },
+    { icon: '🐍', name: 'Python', desc: 'Core AI & Backend Dev' },
+    { icon: '🚀', name: 'FastAPI', desc: 'Production REST APIs' },
+    { icon: '🛢️', name: 'PostgreSQL', desc: 'Relational Data & SQL' },
+    { icon: '🐳', name: 'Docker', desc: 'Containerized Deployment' },
+    { icon: '🌐', name: 'Nginx', desc: 'Reverse Proxy & Deployment' },
+    { icon: '📈', name: 'Pydantic Logfire', desc: 'Observability & Monitoring' },
+    { icon: '⚛️', name: 'Next.js / React', desc: 'Full-Stack Web Apps' },
+    { icon: '🔐', name: 'OAuth 2.0', desc: 'Secure Auth & Integrations' },
+    { icon: '🔮', name: 'Scikit-learn', desc: 'ML Algorithms & Pipelines' },
+    { icon: '🧬', name: 'TensorFlow', desc: 'Deep Learning Models' },
+  ];
+
+  const experienceData = [
+    { role: 'AI Engineer', company: 'Vidushi Infotech', date: 'Nov 2025 – Present',
+      desc: 'Building production agentic AI systems, real-time voice automation, and LLM-powered workflows. Architected AI agents using MCP as the core integration layer, shipped real-time voice AI agents with LiveKit powering an automated lead-response system, and engineered LLM-powered automation spanning e-commerce, sales, and internal knowledge support.' },
+    { role: 'Data Analyst → AI Engineer', company: 'Infosys (Client Project)', date: 'Apr 2022 – Nov 2025',
+      desc: 'Progressed from Data Analyst Intern to full-time AI Engineer, working on Infosys client AI initiatives. Developed AI agent for logistics reporting integrating LLMs, RAG, and dashboards achieving 70% faster reporting.' },
+    { role: 'Research Assistant', company: 'Northside Partnership (Ireland)', date: 'Oct 2020 – Nov 2021',
+      desc: 'Analyzed datasets, created dashboards, and reported program KPIs for social initiatives.' },
+    { role: 'Volunteer Data Analyst', company: 'Ostomy Association of Ireland', date: 'Apr 2019 – Sep 2020',
+      desc: 'Performed patient data analysis and assisted in healthcare seminar reporting.' },
+  ];
+
+  function placeholderImg(line1, line2){
+    return "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='rgb(6,7,11)'/><rect x='4' y='4' width='392' height='292' fill='none' stroke='rgb(99,102,241)' stroke-width='2'/><text x='200' y='150' font-family='monospace' font-size='20' fill='rgb(34,211,238)' text-anchor='middle'>" + line1 + "</text><text x='200' y='180' font-family='monospace' font-size='20' fill='rgb(34,211,238)' text-anchor='middle'>" + line2 + "</text></svg>";
+  }
+
+  const projectsData = [
+    { tag: 'production', img: placeholderImg('REAL-TIME','VOICE AI'), title: 'Real-Time AI Voice Calling Platform (Multi-Tenant SaaS)',
+      desc: 'Production platform where an AI agent places and answers real phone calls in real time, holds a natural spoken conversation, and books the appointment directly onto the calendar.',
+      link: 'https://github.com/AkshayBhujbal1995/Production-AI-Case-Studies/blob/main/real-time-voice-calling-platform.md', linkLabel: 'Read Write-Up' },
+    { tag: 'production', img: placeholderImg('AGENTIC AI','PLATFORM'), title: 'No-Code Agentic AI Automation Platform',
+      desc: 'Platform that lets non-technical staff build and run their own AI agents through a visual workflow builder and chat, with a human-confirmation safety gate on every write action.',
+      link: 'https://github.com/AkshayBhujbal1995/Production-AI-Case-Studies/blob/main/agentic-ai-automation-platform.md', linkLabel: 'Read Write-Up' },
+    { tag: 'production', img: placeholderImg('CART','RECOVERY AI'), title: 'AI-Powered E-Commerce Cart Recovery Platform (Shopify + WooCommerce)',
+      desc: 'Multi-tenant SaaS product that recovers abandoned online checkouts automatically via an AI voice agent plus SMS/WhatsApp/email outreach.',
+      link: 'https://github.com/AkshayBhujbal1995/Production-AI-Case-Studies/blob/main/ecommerce-cart-recovery-platform.md', linkLabel: 'Read Write-Up' },
+    { tag: 'learning', img: 'I1.png', title: 'AI-Driven HR Onboarding Agent',
+      desc: 'Agentic AI system automating HR workflows using MCP server–client architecture and Claude Desktop.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/AI-Driven-HR-Onboarding-Agent', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I2.png', title: 'AI Business Research Copilot (RAG System)',
+      desc: 'RAG-powered local LLM copilot that scrapes, processes, and answers queries with contextual accuracy.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/AI-Business-Research-Copilot', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I3.png', title: 'Fruit Freshness Classification',
+      desc: 'CNN-based deep learning project for fruit quality inspection using image recognition.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/Fruit-Freshness-Classification', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I4.png', title: 'Retail Sales Forecasting',
+      desc: 'Hybrid ML + LSTM model predicting weekly retail sales with interactive charts.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/Retail-Sales-Forecasting', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I5.png', title: 'Customer Churn Prediction',
+      desc: 'Predictive analytics model forecasting customer attrition with interactive visualization.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/Customer-Churn-Prediction', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I6.png', title: 'Credit Card Fraud Detection',
+      desc: 'ML model and Streamlit app detecting fraudulent transactions using Random Forest.',
+      link: 'https://github.com/AkshayBhujbal1995/AI-Portfolio/tree/main/Showcase-Projects/Credit-Card-Fraud-Detection', linkLabel: 'View Code' },
+    { tag: 'learning', img: 'I7.png', title: 'Express Wash - Smart Laundry App',
+      desc: 'Real-time multi-interface laundry management system with AI-assisted tracking and billing.',
+      link: 'https://github.com/AkshayBhujbal1995/ExpressWash-Desktop-Version-Online-System', linkLabel: 'View Code' },
+  ];
+
+  const demoTabs = [
+    { id: 'voice', label: '🎙️ Voice AI', title: 'Real-Time Voice Calling — Simulated Call', lines: [
+      { speaker: 'System', text: 'Incoming lead detected — Meta Lead Ads' },
+      { speaker: 'Agent', text: '"Hi, this is Aria calling on behalf of the business. I see you were interested in our services — do you have a moment?"' },
+      { speaker: 'Caller', text: '"Yes, sure, go ahead."' },
+      { speaker: 'Agent', text: '"I can get you booked in for a free consultation. Does Thursday at 3 PM work?"' },
+      { speaker: 'Caller', text: '"Thursday at 3 works for me."' },
+      { speaker: 'System', text: '✅ Appointment booked to calendar · Call duration 42s' },
+    ]},
+    { id: 'agentic', label: '🧠 Agentic Automation', title: 'Agentic Workflow — Simulated Trace', lines: [
+      { speaker: 'System', text: 'Trigger: new candidate sourcing request received' },
+      { speaker: 'Agent', text: 'Reasoning: search LinkedIn + GitHub for matching profiles' },
+      { speaker: 'System', text: '🔧 Tool call: search_candidates(role="Backend Engineer")' },
+      { speaker: 'Agent', text: 'Found 6 candidates — drafting outreach and saving to tracker' },
+      { speaker: 'System', text: '⏸ Waiting for human confirmation to send outreach emails' },
+      { speaker: 'System', text: '✅ Human approved — 6 emails sent, tracker updated' },
+    ]},
+    { id: 'cart', label: '🛒 Cart Recovery', title: 'Cart Recovery — Simulated Outreach', lines: [
+      { speaker: 'System', text: 'Webhook received: checkout abandoned on Shopify store' },
+      { speaker: 'Agent', text: '"Hi! Noticed you left some items in your cart 🛒 Need any help before you check out?"' },
+      { speaker: 'Caller', text: '"Is this still in stock in size M?"' },
+      { speaker: 'Agent', text: '"Yes, size M is in stock — here is 10% off to complete your order: SAVE10"' },
+      { speaker: 'System', text: '✅ Checkout completed · Order recovered' },
+    ]},
+  ];
+
+  // ---------- RENDER: SKILLS ----------
+  const skillsGrid = document.getElementById('skills-grid');
+  skillsData.forEach(s => {
+    skillsGrid.innerHTML += `<div class="glass glass-hover rounded-xl p-5 text-center reveal-card">
+      <div class="text-3xl mb-2">${s.icon}</div>
+      <h3 class="font-display text-sm font-bold" style="color:var(--text);">${s.name}</h3>
+      <p class="text-xs mt-1">${s.desc}</p>
+    </div>`;
+  });
+
+  // ---------- RENDER: EXPERIENCE ----------
+  const timeline = document.getElementById('experience-timeline');
+  experienceData.forEach(job => {
+    timeline.innerHTML += `<div class="timeline-item pb-2">
+      <span class="timeline-dot"></span>
+      <h3 class="font-display text-lg font-bold" style="color:var(--text);">${job.role} <span style="color:var(--dim); font-weight:400;">at</span> <span class="gradient-text">${job.company}</span></h3>
+      <p class="mono text-accent text-xs mt-1">${job.date}</p>
+      <p class="mt-2 text-sm">${job.desc}</p>
+    </div>`;
+  });
+
+  // ---------- RENDER: PROJECTS (learning grid) ----------
+  const projectsGrid = document.getElementById('projects-grid');
+  projectsData.filter(p => p.tag === 'learning').forEach(p => {
+    projectsGrid.innerHTML += `<div class="glass glass-hover rounded-2xl overflow-hidden flex flex-col reveal-card">
+      <div class="h-40 bg-black/30"><img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover"></div>
+      <div class="p-5 flex flex-col flex-grow">
+        <div class="mb-2"><span class="badge badge-learning">Learning</span></div>
+        <h3 class="font-display text-base font-bold" style="color:var(--text);">${p.title}</h3>
+        <p class="mt-2 text-sm flex-grow">${p.desc}</p>
+        <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn btn-outline text-xs mt-4 text-center">${p.linkLabel}</a>
+      </div>
+    </div>`;
+  });
+
+  // ---------- RENDER: FEATURED PROJECT CAROUSEL (production) ----------
+  const featuredProjects = projectsData.filter(p => p.tag === 'production');
+  const carouselEl = document.getElementById('project-carousel');
+  const dotsEl = document.getElementById('carousel-dots');
+  let carouselIndex = 0;
+
+  function renderCarousel(){
+    const p = featuredProjects[carouselIndex];
+    carouselEl.innerHTML = `<div class="glass glass-hover rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+      <div class="sm:w-2/5 h-48 sm:h-auto bg-black/30"><img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover"></div>
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="mb-2"><span class="badge badge-production">Production</span></div>
+        <h3 class="font-display text-lg font-bold" style="color:var(--text);">${p.title}</h3>
+        <p class="mt-2 text-sm flex-grow">${p.desc}</p>
+        <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="btn btn-outline text-xs mt-4 self-start">${p.linkLabel}</a>
+      </div>
+    </div>`;
+    gsap.fromTo(carouselEl, { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.45, ease: 'power2.out' });
+
+    dotsEl.innerHTML = '';
+    featuredProjects.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'carousel-dot' + (i === carouselIndex ? ' active' : '');
+      dot.addEventListener('click', () => { carouselIndex = i; renderCarousel(); });
+      dotsEl.appendChild(dot);
+    });
+  }
+
+  document.getElementById('carousel-prev').addEventListener('click', () => {
+    carouselIndex = (carouselIndex - 1 + featuredProjects.length) % featuredProjects.length;
+    renderCarousel();
+  });
+  document.getElementById('carousel-next').addEventListener('click', () => {
+    carouselIndex = (carouselIndex + 1) % featuredProjects.length;
+    renderCarousel();
+  });
+  renderCarousel();
+
+  // ---------- ROLE ROTATOR ----------
+  const roles = ['AI Engineer', 'Agentic AI Builder', 'Real-Time Voice Systems', 'LLM Systems Engineer'];
+  let roleIdx = 0;
+  const roleEl = document.getElementById('role-rotator');
+  function cycleRole(){
+    gsap.timeline({ onComplete: cycleRole })
+      .to(roleEl, { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in', overwrite: true })
+      .call(() => { roleIdx = (roleIdx + 1) % roles.length; roleEl.textContent = roles[roleIdx]; })
+      .fromTo(roleEl, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
+      .to({}, { duration: 2.2 });
+  }
+  cycleRole();
+
+  // ---------- MOBILE MENU ----------
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+  let menuOpen = false;
+  function setMenu(open){
+    menuOpen = open;
+    mobileMenu.style.maxHeight = open ? mobileMenu.scrollHeight + 'px' : '0px';
+    mobileMenu.style.opacity = open ? '1' : '0';
+    iconOpen.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+  }
+  menuToggle.addEventListener('click', () => setMenu(!menuOpen));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => setMenu(false)));
+
+  // ---------- AI DEMO TABS ----------
+  const tabButtonsEl = document.getElementById('tab-buttons');
+  const demoTitleEl = document.getElementById('demo-title');
+  const demoPanelEl = document.getElementById('demo-panel');
+  const simulateBtn = document.getElementById('simulate-btn');
+  let activeTab = demoTabs[0];
+
+  function renderTabs(){
+    tabButtonsEl.innerHTML = '';
+    demoTabs.forEach(tab => {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn rounded-full px-5 py-2 text-sm font-medium' + (tab.id === activeTab.id ? ' active' : '');
+      btn.textContent = tab.label;
+      btn.addEventListener('click', () => { activeTab = tab; renderTabs(); resetPanel(); });
+      tabButtonsEl.appendChild(btn);
+    });
+  }
+
+  function resetPanel(){
+    demoTitleEl.textContent = activeTab.title;
+    demoPanelEl.innerHTML = '<p class="text-sm" style="color:var(--dim);">Click "Simulate" to play this walkthrough.</p>';
+  }
+
+  function playDemo(){
+    demoPanelEl.innerHTML = '';
+    const callerAvatar = document.querySelector('.agent-avatar-caller');
+    const aiAvatar = document.querySelector('.agent-avatar-ai');
+    let t = 0;
+    activeTab.lines.forEach((line) => {
+      const avatar = line.speaker === 'Agent' ? aiAvatar : (line.speaker === 'Caller' ? callerAvatar : null);
+      const typingDelay = avatar ? 500 : 0;
+
+      if (avatar) {
+        setTimeout(() => {
+          avatar.style.boxShadow = '0 0 24px rgba(34,211,238,.9)';
+          const bubbleClass = line.speaker === 'Agent' ? 'bubble-agent' : 'bubble-caller';
+          const typingWrap = document.createElement('div');
+          typingWrap.className = 'chat-line typing-bubble max-w-[85%] rounded-xl px-4 py-3 text-sm ' + bubbleClass;
+          typingWrap.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+          demoPanelEl.appendChild(typingWrap);
+          demoPanelEl.scrollTop = demoPanelEl.scrollHeight;
+        }, t);
+      }
+
+      t += typingDelay;
+
+      setTimeout(() => {
+        const typingBubble = demoPanelEl.querySelector('.typing-bubble');
+        if (typingBubble) typingBubble.remove();
+        if (avatar) avatar.style.boxShadow = '';
+
+        const bubbleClass = line.speaker === 'Agent' ? 'bubble-agent' : (line.speaker === 'Caller' ? 'bubble-caller' : 'bubble-system');
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-line max-w-[85%] rounded-xl px-4 py-3 text-sm ' + bubbleClass;
+        if (line.speaker !== 'System') {
+          wrap.innerHTML = `<span class="mono text-[10px] uppercase tracking-widest block mb-1" style="color:var(--dim);">${line.speaker}</span>${line.text}`;
+        } else {
+          wrap.textContent = line.text;
+        }
+        demoPanelEl.appendChild(wrap);
+        demoPanelEl.scrollTop = demoPanelEl.scrollHeight;
+      }, t + 550);
+
+      t += 1150;
+    });
+  }
+
+  simulateBtn.addEventListener('click', playDemo);
+  renderTabs();
+  resetPanel();
+
+  // ---------- GSAP SCROLL REVEALS ----------
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach(section => {
+    gsap.from(section, {
+      scrollTrigger: { trigger: section, start: 'top 82%' },
+      opacity: 0, y: 40, duration: 0.9, ease: 'power3.out'
+    });
+  });
+  gsap.utils.toArray('.reveal-card').forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: 'top 90%' },
+      opacity: 0, y: 24, duration: 0.6, delay: (i % 4) * 0.08, ease: 'power2.out'
+    });
+  });
+  gsap.to('.hero-blur', {
+    opacity: 1, filter: 'blur(0px)', y: 0, duration: 1.1, stagger: 0.15, ease: 'power3.out'
+  });
+
+  // ---------- HERO 3D SCENE: AGENT-NETWORK CLUSTER (Three.js) ----------
+  (function initHeroScene(){
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+    const heroSection = document.getElementById('home');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, heroSection.clientWidth / heroSection.clientHeight, 0.1, 1000);
+    camera.position.z = 9;
+
+    function resize(){
+      const w = heroSection.clientWidth, h = heroSection.clientHeight;
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Starfield
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 600;
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount * 3; i++) starPos[i] = (Math.random() - 0.5) * 60;
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({ color: 0x8890ff, size: 0.06, transparent: true, opacity: 0.7 });
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    // Cluster group: a central "orchestrator" core + orbiting "agent" nodes connected by pulsing lines
+    const clusterGroup = new THREE.Group();
+    scene.add(clusterGroup);
+
+    const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), coreMat);
+    clusterGroup.add(core);
+
+    const coreGlowMat = new THREE.MeshBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.25 });
+    const coreGlow = new THREE.Mesh(new THREE.SphereGeometry(0.34, 16, 16), coreGlowMat);
+    clusterGroup.add(coreGlow);
+
+    function fibonacciSphere(samples, radius){
+      const points = [];
+      const phi = Math.PI * (3 - Math.sqrt(5));
+      for (let i = 0; i < samples; i++){
+        const y = 1 - (i / (samples - 1)) * 2;
+        const r = Math.sqrt(Math.max(0, 1 - y * y));
+        const theta = phi * i;
+        points.push(new THREE.Vector3(Math.cos(theta) * r * radius, y * radius, Math.sin(theta) * r * radius));
+      }
+      return points;
+    }
+
+    const nodeColors = [0x6366f1, 0x22d3ee, 0xa855f7];
+    const targetPositions = fibonacciSphere(8, 2.3);
+    const now0 = performance.now();
+    const nodes = targetPositions.map((target, i) => {
+      const color = nodeColors[i % nodeColors.length];
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 12), new THREE.MeshBasicMaterial({ color }));
+      const scatterDir = new THREE.Vector3((Math.random()-0.5), (Math.random()-0.5), (Math.random()-0.5)).normalize();
+      const start = scatterDir.multiplyScalar(6 + Math.random() * 3);
+      mesh.position.copy(start);
+      clusterGroup.add(mesh);
+
+      const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), start.clone()]);
+      const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.2 });
+      const line = new THREE.Line(lineGeo, lineMat);
+      clusterGroup.add(line);
+
+      return { mesh, line, start: start.clone(), target, startTime: now0 + i * 140, duration: 1500 };
+    });
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', e => {
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    function animate(){
+      requestAnimationFrame(animate);
+      const now = performance.now();
+
+      nodes.forEach((n, i) => {
+        const elapsed = now - n.startTime;
+        let t = Math.min(Math.max(elapsed / n.duration, 0), 1);
+        t = 1 - Math.pow(1 - t, 3);
+        n.mesh.position.lerpVectors(n.start, n.target, t);
+        const posAttr = n.line.geometry.attributes.position;
+        posAttr.setXYZ(1, n.mesh.position.x, n.mesh.position.y, n.mesh.position.z);
+        posAttr.needsUpdate = true;
+        n.line.material.opacity = 0.15 + 0.25 * (0.5 + 0.5 * Math.sin(now * 0.0018 + i * 1.3));
+      });
+
+      coreGlow.scale.setScalar(1 + 0.15 * Math.sin(now * 0.003));
+      clusterGroup.rotation.y += 0.0018;
+      clusterGroup.rotation.x = Math.sin(now * 0.0004) * 0.15;
+      stars.rotation.y += 0.0004;
+
+      camera.position.x += (mouseX * 2 - camera.position.x) * 0.03;
+      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.03;
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+    }
+    animate();
+  })();
+
+});
+</script>
+</body>
+</html>
